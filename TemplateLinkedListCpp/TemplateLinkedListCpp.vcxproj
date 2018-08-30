@@ -20,8 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\App\main.cpp" />
+    <ClCompile Include="..\Source\LinkedList\LinkedList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\LinkedList\LinkedList.h" />
     <ClInclude Include="..\Source\LinkedList\List.h" />
     <ClInclude Include="..\Source\LinkedList\ListNode.h" />
     <ClInclude Include="..\Source\LinkedList\Tree.h" />

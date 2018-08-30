@@ -18,6 +18,9 @@
     <ClCompile Include="..\Source\App\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\LinkedList\LinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\LinkedList\ListNode.h">
@@ -30,6 +33,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\LinkedList\Tree.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\LinkedList\LinkedList.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
