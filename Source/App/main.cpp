@@ -177,10 +177,29 @@ void TestAddLast_Node()
 
 }
 
+void TestFind_Node()
+{
+    int arr[] = { 52, 80, 94, 26, 23, 89, 32, 50, 22, 23 };
+
+    LinkedListNode<int> * nodeFound = NULL;
+    LinkedList<int> pNewList;
+    for (int i = 0; i < 10; i++)
+    {
+        LinkedListNode<int> *newNode = new LinkedListNode<int>(arr[i]);
+        pNewList.AddLast(newNode);
+    }
+
+    nodeFound = pNewList.Find(50);
+    printf("\nNode found = %x\n", nodeFound);
+    printf("\nNode value = %d\n", nodeFound->GetValue());
+    system("pause");
+}
+
 void UnitTestMyLinkedList()
 {
     //TestAddLast_Value();
-    TestAddLast_Node();
+    //TestAddLast_Node();
+    TestFind_Node();
 }
 
 

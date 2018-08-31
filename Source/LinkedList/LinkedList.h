@@ -101,7 +101,7 @@ public:
     //     The value to locate in the LinkedList
     // Returns:
     //     The first LinkedListNode that contains the specified value, if found; otherwise, null.
-    LinkedListNode<T> Find(T value);
+    LinkedListNode<T> * Find(T value);
 
     //
     // Summary:
@@ -111,7 +111,7 @@ public:
     //     The value to locate in the LinkedList
     // Returns:
     //     The last LinkedListNode that contains the specified value, if found; otherwise, null.
-    LinkedListNode<T> FindLast(T value);
+    LinkedListNode<T> * FindLast(T value);
 
     //Enumerator GetEnumerator();
     //virtual void GetObjectData(SerializationInfo info, StreamingContext context);
@@ -286,13 +286,25 @@ void LinkedList<T>::Clear()
 }
 
 template <class T>
-LinkedListNode<T> LinkedList<T>::Find(T value)
+LinkedListNode<T> * LinkedList<T>::Find(T value)
 {
+    LinkedListNode<T>* nodePtr = NULL;
+    bool found = false;
 
+    nodePtr = m_pStart;
+
+    while ((!found) && (nodePtr != NULL)) //runs through list until data is found within a node or end of list is reached
+    {
+        if (nodePtr->GetValue() == value) //if the node's data equals the key then the node has been found
+            found = true;
+        else
+            nodePtr = nodePtr->GetNext(); //moves to next node in list
+    }
+    return nodePtr; //returns pointer to the node that contains data equal to key (NULL if not found)
 }
 
 template <class T>
-LinkedListNode<T> LinkedList<T>::FindLast(T value)
+LinkedListNode<T> * LinkedList<T>::FindLast(T value)
 {
 
 }
