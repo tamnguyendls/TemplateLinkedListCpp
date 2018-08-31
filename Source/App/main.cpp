@@ -1,13 +1,10 @@
 #include <iostream>
 #include <ctime>
-
-#include "List.h"
-#include "ListNode.h"
-#include "Tree.h"
-#include "TreeNode.h"
+#include "LinkedList.h"
 
 using namespace std;
 
+#if 0
 bool  TestFunction()
 {
     int choice = 0;
@@ -136,8 +133,58 @@ bool  TestFunction()
     }
     return false;
 }
+#endif 
+
+void TestAddLast_Value()
+{
+    int choice = 0;
+
+    const int size = 10;
+    int arr[size];
+    srand(time(0));
+    for (int i = 0; i <= size - 1; i++)
+    {
+        arr[i] = rand() % 101;
+    }
+
+    LinkedList<int> pNewList;
+    for (int i = 0; i <= size - 1; i++)
+    {
+        pNewList.AddLast(arr[i]);
+    }
+
+    pNewList.Print();
+
+    system("pause");
+}
+
+void TestAddLast_Node()
+{
+    int arr[] = { 52, 80, 94, 26, 23, 89, 32, 50, 22, 23 };
+
+    LinkedList<int> pNewList;
+    for (int i = 0; i < 10; i++)
+    {
+        LinkedListNode<int> *newNode = new LinkedListNode<int>(arr[i]);
+        pNewList.AddLast(newNode);
+    }
+
+    pNewList.Print();
+
+    system("pause");
+
+}
+
+void UnitTestMyLinkedList()
+{
+    //TestAddLast_Value();
+    TestAddLast_Node();
+}
+
 
 int main()
 {
-    TestFunction();
+    //TestFunction();
+
+    UnitTestMyLinkedList();
 }

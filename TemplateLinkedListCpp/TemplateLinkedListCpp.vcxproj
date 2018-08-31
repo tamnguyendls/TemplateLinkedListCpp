@@ -20,14 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\App\main.cpp" />
-    <ClCompile Include="..\Source\LinkedList\LinkedList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\LinkedList\LinkedList.h" />
-    <ClInclude Include="..\Source\LinkedList\List.h" />
-    <ClInclude Include="..\Source\LinkedList\ListNode.h" />
-    <ClInclude Include="..\Source\LinkedList\Tree.h" />
-    <ClInclude Include="..\Source\LinkedList\TreeNode.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4DB37257-C64C-494B-B4F5-3E8B6B3863EE}</ProjectGuid>
