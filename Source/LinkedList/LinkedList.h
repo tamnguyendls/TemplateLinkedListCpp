@@ -53,7 +53,7 @@ public:
     //         The value to add to the LinkedList
     // Returns:
     //     The new LinkedListNode containing value.
-    LinkedListNode<T> AddAfter(LinkedListNode<T> node, T value);
+    LinkedListNode<T> * AddAfter(LinkedListNode<T> * node, T value);
 
     //
     // Summary:
@@ -63,7 +63,7 @@ public:
     //     The LinkedListNode after which to insert newNode.
     //   newNode:
     //     The new LinkedListNode to add to the LinkedList
-    void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode);
+    bool AddAfter(LinkedListNode<T> * node, LinkedListNode<T> * newNode);
 
     //LinkedListNode<T> AddBefore(LinkedListNode<T> node, T value);
     //void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode);
@@ -146,6 +146,7 @@ public:
 private:
     LinkedListNode<T> *m_pStart;   //stores the pointer of first object in the linked list
     LinkedListNode<T> *m_pEnd;    //stored the pointer of the last object in the linked list
+    bool findNodeInList(LinkedListNode<T> * node);
     int m_NumberOfNodes;
     bool isEmpty();                 //utility functions used to see if the list contains no elements
     void beginInsert(T);           //inserts new node before the first node in the list
@@ -228,15 +229,44 @@ LinkedListNode<T> * LinkedList<T>::Last()
 }
 
 template <class T>
-LinkedListNode<T> LinkedList<T>::AddAfter(LinkedListNode<T> node, T value)
+LinkedListNode<T> * LinkedList<T>::AddAfter(LinkedListNode<T> * node, T value)
 {
-    //TODO:
+    LinkedListNode<T> * p_NewNode = NULL;
+    LinkedListNode<T> * p_ExistingNode = node;
+
+    if (p_ExistingNode == NULL)
+    {
+        return NULL;
+    }
+    
+    if (findNodeInList(p_ExistingNode) == true)
+    {
+        p_NewNode = new LinkedListNode<T>(value);
+        p_NewNode->SetNext(p_ExistingNode->GetNext());
+        p_ExistingNode->SetNext(p_NewNode);
+        m_NumberOfNodes++;
+    }
+
+    return p_NewNode;
 }
 
 template <class T>
-void LinkedList<T>::AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
+bool LinkedList<T>::AddAfter(LinkedListNode<T> * node, LinkedListNode<T> * newNode)
 {
-    //TODO:
+    LinkedListNode<T> * p_ExistingNode = node;
+
+    if ((p_ExistingNode == NULL) || (newNode == NULL))
+    {
+        return false;
+    }
+    
+    if (findNodeInList(p_ExistingNode) == true)
+    {
+        newNode->SetNext(p_ExistingNode->GetNext());
+        p_ExistingNode->SetNext(newNode);
+        m_NumberOfNodes++;
+        return true;
+    }
 }
 
 template <class T>
@@ -372,6 +402,22 @@ void LinkedList<T>::beginInsert(T inData)
     }
 }
 
+template <class T>
+bool LinkedList<T>::findNodeInList(LinkedListNode<T> * node)
+{
+    LinkedListNode<T>* nodePtr = m_pStart;
+    bool bFound = false;
+
+    while ((!bFound) && (nodePtr != NULL)) //runs through list until data is found within a node or end of list is reached
+    {
+        if (nodePtr == node) //if the node's data equals the key then the node has been found
+            bFound = true;
+        else
+            nodePtr = nodePtr->GetNext(); //moves to next node in list
+    }
+
+    return bFound; //returns pointer to the node that contains data equal to key (NULL if not found)
+}
 ////////////////////////////////////////////////////////////////////////////////////////
 
 

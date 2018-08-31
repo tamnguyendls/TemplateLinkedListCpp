@@ -195,11 +195,52 @@ void TestFind_Node()
     system("pause");
 }
 
+void TestAddNewNodeAfterExistingNode()
+{
+    int arr[] = { 52, 80, 94, 26, 23, 89, 32, 50, 22, 23 };
+
+    LinkedListNode<int> * existingNode = NULL;
+    LinkedListNode<int> * nodeAdded = NULL;
+    LinkedList<int> pNewList;
+    for (int i = 0; i < 10; i++)
+    {
+        LinkedListNode<int> *newNode = new LinkedListNode<int>(arr[i]);
+        pNewList.AddLast(newNode);
+    }
+
+    // Before adding
+    pNewList.Print();
+    printf("Count = %d\n", pNewList.Count());
+
+    // Adding
+    existingNode = pNewList.Find(22);
+    nodeAdded = pNewList.AddAfter(existingNode, 100);
+
+    printf("\nNode found = %x\n", nodeAdded);
+    printf("Node value = %d\n", nodeAdded->GetValue());
+
+    // After adding
+    pNewList.Print();
+    printf("Count = %d\n", pNewList.Count());
+    
+    //
+    LinkedListNode<int> *node = new LinkedListNode<int>(200);
+    if (pNewList.AddAfter(pNewList.Find(94), node) == true)
+    {
+        printf("\nAdd node to list successfully\n");
+        pNewList.Print();
+        printf("Count = %d\n", pNewList.Count());
+    }
+
+    system("pause");
+}
+
 void UnitTestMyLinkedList()
 {
     //TestAddLast_Value();
     //TestAddLast_Node();
-    TestFind_Node();
+    //TestFind_Node();
+    TestAddNewNodeAfterExistingNode();
 }
 
 
