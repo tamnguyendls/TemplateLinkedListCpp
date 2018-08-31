@@ -167,10 +167,12 @@ void TestAddLast_Node()
     {
         LinkedListNode<int> *newNode = new LinkedListNode<int>(arr[i]);
         pNewList.AddLast(newNode);
+        printf("\nCount = %d\n", pNewList.Count());
+
     }
 
     pNewList.Print();
-
+    printf("\nCount = %d\n", pNewList.Count());
     system("pause");
 
 }

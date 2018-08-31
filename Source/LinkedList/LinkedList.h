@@ -39,8 +39,8 @@ public:
     ////LinkedList(SerializationInfo info, StreamingContext context);
 
     int Count();
-    //LinkedListNode<T> GetFirst();
-    //LinkedListNode<T> GetLast();
+    LinkedListNode<T> * First();
+    LinkedListNode<T> * Last();
 
     //
     // Summary:
@@ -146,7 +146,7 @@ public:
 private:
     LinkedListNode<T> *m_pStart;   //stores the pointer of first object in the linked list
     LinkedListNode<T> *m_pEnd;    //stored the pointer of the last object in the linked list
-    int m_Count;
+    int m_NumberOfNodes;
     bool isEmpty();                 //utility functions used to see if the list contains no elements
     void beginInsert(T);           //inserts new node before the first node in the list
     void endInsert(T);            //inserts new node after the last node in the list
@@ -189,7 +189,7 @@ LinkedList<T>::LinkedList()
     //creates list with start and end as NULL
     m_pStart = NULL;
     m_pEnd = NULL;
-    m_Count = 0;
+    m_NumberOfNodes = 0;
 }
 
 template <typename T>
@@ -212,7 +212,19 @@ LinkedList<T>::~LinkedList()
 template <class T>
 int LinkedList<T>::Count()
 {
+    return m_NumberOfNodes;
+}
 
+template <class T>
+LinkedListNode<T> * LinkedList<T>::First()
+{
+    return m_pStart;
+}
+
+template <class T>
+LinkedListNode<T> * LinkedList<T>::Last()
+{
+    return m_pEnd;
 }
 
 template <class T>
@@ -237,12 +249,14 @@ LinkedListNode<T> * LinkedList<T>::AddLast(T value)
         p_NewNode = new LinkedListNode<T>(value);
         m_pStart = p_NewNode;
         m_pEnd = p_NewNode;
+        m_NumberOfNodes++;
     }
     else //if node(s) exist in the list then insert new node at the end of the list
     {
         p_NewNode = new LinkedListNode<T>(value);
         m_pEnd->SetNext(p_NewNode); //the current last node's next pointer points to the new node
         m_pEnd = p_NewNode; //the new node is now the last node in the list
+        m_NumberOfNodes++;
     }
 
     return p_NewNode;
@@ -255,11 +269,13 @@ void LinkedList<T>::AddLast(LinkedListNode<T> * node)
     {
         m_pStart = node;
         m_pEnd = node;
+        m_NumberOfNodes++;
     }
     else //if node(s) exist in the list then insert new node at the end of the list
     {
         m_pEnd->SetNext(node); //the current last node's next pointer points to the new node
         m_pEnd = node; //the new node is now the last node in the list
+        m_NumberOfNodes++;
     }
 }
 
