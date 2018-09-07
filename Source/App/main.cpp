@@ -252,13 +252,71 @@ void TestAddNewNodeWithString()
     system("pause");
 }
 
+void TestAddFirst_Value()
+{
+    printf("\nTestAddFirst_Value\n");
+
+    int arr[] = { 52, 80, 94, 26, 23, 89, 32, 50, 22, 23 };
+    int size = sizeof(arr) / sizeof(int);
+    LinkedList<int> pNewList;
+
+    for (int i = 0; i <= size - 1; i++)
+    {
+        pNewList.AddFirst(arr[i]);
+    }
+
+    pNewList.Print();
+
+    char * firstString[] = { "the", "fox", "jumped", "over", "the", "dog" };
+    LinkedList<char*> pStringList;
+    
+    for (int i = 0; i <= 6 - 1; i++)
+    {
+        pStringList.AddFirst(firstString[i]);
+    }
+    pStringList.Print();
+
+    //system("pause");
+}
+
+void TestAddFirst_Node()
+{
+    printf("\nTestAddFirst_Node\n");
+
+    int arr[] = { 1, 4, 9, 18, 33, 72, 45, 19, 56, 83 };
+
+    LinkedList<int> pNewList;
+    for (int i = 0; i < 10; i++)
+    {
+        LinkedListNode<int> *newNode = new LinkedListNode<int>(arr[i]);
+        pNewList.AddFirst(newNode);
+    }
+
+    pNewList.Print();
+    printf("Count = %d\n", pNewList.Count());
+
+    char * firstString[] = { "the", "cat", "caught", "the", "big", "fish" };
+    LinkedList<char*> pStringList;
+    for (int i = 0; i <= 6 - 1; i++)
+    {
+        LinkedListNode<char*> *newNode = new LinkedListNode<char*>(firstString[i]);
+        pStringList.AddFirst(newNode);
+    }
+
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+    system("pause");
+}
+
 void UnitTestMyLinkedList()
 {
     //TestAddLast_Value();
     //TestAddLast_Node();
     //TestFind_Node();
-    // TestAddNewNodeAfterExistingNode();
-    TestAddNewNodeWithString();
+    //TestAddNewNodeAfterExistingNode();
+    //TestAddNewNodeWithString();
+    TestAddFirst_Value();
+    TestAddFirst_Node();
 }
 
 

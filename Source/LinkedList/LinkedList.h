@@ -54,7 +54,6 @@ public:
     // Returns:
     //     The new LinkedListNode containing value.
     LinkedListNode<T> * AddAfter(LinkedListNode<T> * node, T value);
-
     //
     // Summary:
     //     Adds the specified new node after the specified existing node in the LinkedList
@@ -67,9 +66,23 @@ public:
 
     //LinkedListNode<T> AddBefore(LinkedListNode<T> node, T value);
     //void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode);
-    //LinkedListNode<T> AddFirst(T value);
-    //void AddFirst(LinkedListNode<T> node);
 
+    //
+    // Summary:
+    //     Adds a new node containing the specified value at the start of the LinkedList
+    // Parameters:
+    //   value:
+    //     The value to add at the start of the LinkedList
+    // Returns:
+    //     The new LinkedListNode containing value.
+    LinkedListNode<T> * AddFirst(T value);
+    //
+    // Summary:
+    //     Adds the specified new node at the start of the LinkedList
+    // Parameters:
+    //   node:
+    //     The new LinkedListNode to add at the start of the LinkedList
+    void AddFirst(LinkedListNode<T> * node);
     //
     // Summary:
     //     Adds a new node containing the specified value at the end of the LinkedList`
@@ -102,7 +115,6 @@ public:
     // Returns:
     //     The first LinkedListNode that contains the specified value, if found; otherwise, null.
     LinkedListNode<T> * Find(T value);
-
     //
     // Summary:
     //     Finds the last node that contains the specified value.
@@ -116,7 +128,6 @@ public:
     //Enumerator GetEnumerator();
     //virtual void GetObjectData(SerializationInfo info, StreamingContext context);
     //virtual void OnDeserialization(object sender);
-
     //
     // Summary:
     //     Removes the first occurrence of the specified value from the LinkedList
@@ -266,6 +277,46 @@ bool LinkedList<T>::AddAfter(LinkedListNode<T> * node, LinkedListNode<T> * newNo
         p_ExistingNode->SetNext(newNode);
         m_NumberOfNodes++;
         return true;
+    }
+}
+
+template <class T>
+LinkedListNode<T> * LinkedList<T>::AddFirst(T value)
+{
+    LinkedListNode<T> * p_NewNode = NULL;
+
+    if (isEmpty())
+    {
+        p_NewNode = new LinkedListNode<T>(value);
+        m_pStart = p_NewNode;
+        m_pEnd = p_NewNode;
+        m_NumberOfNodes++;
+    }
+    else
+    {
+        p_NewNode = new LinkedListNode<T>(value);
+        p_NewNode->SetNext(m_pStart);
+        m_pStart = p_NewNode;
+        m_NumberOfNodes++;
+    }
+
+    return p_NewNode;
+}
+
+template <class T>
+void LinkedList<T>::AddFirst(LinkedListNode<T> * node)
+{
+    if (isEmpty())
+    {
+        m_pStart = node;
+        m_pEnd = node;
+        m_NumberOfNodes++;
+    }
+    else
+    {
+        node->SetNext(m_pStart);
+        m_pStart = node;
+        m_NumberOfNodes++;
     }
 }
 
