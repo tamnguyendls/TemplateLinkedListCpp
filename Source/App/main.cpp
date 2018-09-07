@@ -235,12 +235,30 @@ void TestAddNewNodeAfterExistingNode()
     system("pause");
 }
 
+void TestAddNewNodeWithString()
+{
+    char * sTestTring1 = "this is a test";
+    LinkedListNode<char*> *newNode1 = new LinkedListNode<char*>(sTestTring1);
+    LinkedList<char*> pNewList;
+
+    pNewList.AddLast(newNode1);
+
+    char * sTestTring2 = "For linked list";
+    LinkedListNode<char*> *newNode2 = new LinkedListNode<char*>(sTestTring2);
+    pNewList.AddLast(newNode2);
+
+    pNewList.Print();
+
+    system("pause");
+}
+
 void UnitTestMyLinkedList()
 {
     //TestAddLast_Value();
     //TestAddLast_Node();
     //TestFind_Node();
-    TestAddNewNodeAfterExistingNode();
+    // TestAddNewNodeAfterExistingNode();
+    TestAddNewNodeWithString();
 }
 
 

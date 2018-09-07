@@ -24,7 +24,7 @@ public:
 
 private:
     T m_Data; //templatized data stored in node
-    LinkedListNode * m_pNextNode; //pointer to the next node in list
+    LinkedListNode<T> * m_pNextNode; //pointer to the next node in list
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -158,9 +158,9 @@ private:
 ////////////////////////////////////////////////////////////////////////////////////////
 
 template <class T>
-LinkedListNode<T>::LinkedListNode(T tDataIn)
+LinkedListNode<T>::LinkedListNode(T value)
 {
-    m_Data = tDataIn; //stores data in node
+    m_Data = value; //stores data in node
     m_pNextNode = 0; //initializes point to next node to null
 }
 
