@@ -396,6 +396,79 @@ void TestClearList()
     system("pause");
 }
 
+void TestGetContain()
+{
+    printf("\nTestGetContain\n");
+    char * firstString[] = { "the", "cat", "caught", "the", "big", "fish" };
+    LinkedList<char*> pStringList;
+
+    for (int i = 0; i < 6; i++)
+    {
+        LinkedListNode<char*> *newNode = new LinkedListNode<char*>(firstString[i]);
+        pStringList.AddLast(newNode);
+    }
+
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+
+    if (pStringList.Contains("caught"))
+    {
+        printf("pStringList.Contains(\"caught\") = true\n");
+    }
+    else
+    {
+        printf("pStringList.Contains(\"caught\") = false\n");
+
+    }
+
+    if (pStringList.Contains("123"))
+    {
+        printf("pStringList.Contains(\"123\") = true\n");
+    }
+    else
+    {
+        printf("pStringList.Contains(\"123\") = false\n");
+    }
+
+    system("pause");
+}
+
+void TestCopyToArray()
+{
+    printf("\nTestCopyToArray\n");
+    char * firstString[] = { "the", "cat", "caught", "the", "big", "fish" };
+    LinkedList<char*> pStringList;
+    int count = 0;
+
+    for (int i = 0; i < 6; i++)
+    {
+        LinkedListNode<char*> *newNode = new LinkedListNode<char*>(firstString[i]);
+        pStringList.AddLast(newNode);
+    }
+
+    pStringList.Print();
+    count = pStringList.Count();
+    printf("Count = %d\n", count);
+
+    // way 1 of new array pointer
+    char ** pArray = new char*[count];
+    for (int i = 0; i < count; i++)
+    {
+        pArray[i] = new char;
+        memset(pArray[i], NULL, sizeof(char));
+    }
+
+    pStringList.CopyTo(pArray, 0);
+    pStringList.Clear();
+    pStringList.Print();
+    for (int i = 0; i < count; i++)
+    {
+        printf("array[%d]:%s\n", i, pArray[i]);
+    }
+
+    system("pause");
+}
+
 void UnitTestMyLinkedList()
 {
     //TestAddLast_Value();
@@ -406,9 +479,11 @@ void UnitTestMyLinkedList()
     //TestAddFirst_Value();
     //TestAddFirst_Node();
     //TestRemoveFirst();
-    TestRemove_T_Value();
-    TestRemoveFistRemoveLast();
-    TestClearList();
+    //TestRemove_T_Value();
+    //TestRemoveFistRemoveLast();
+    //TestClearList();
+    //TestGetContain();
+    TestCopyToArray();
 }
 
 

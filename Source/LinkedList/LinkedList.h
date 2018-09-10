@@ -38,10 +38,24 @@ public:
     ////LinkedList(IEnumerable<T> collection);
     ////LinkedList(SerializationInfo info, StreamingContext context);
 
+    //
+    // Summary:
+    //     Gets the number of nodes actually contained in the LinkedList
+    // Returns:
+    //     The number of nodes actually contained in the LinkedList
     int Count();
+    //
+    // Summary:
+    //     Gets the first node of the LinkedList
+    // Returns:
+    //     The first LinkedListNode of the LinkedList
     LinkedListNode<T> * First();
+    //
+    // Summary:
+    //     Gets the last node of the LinkedList
+    // Returns:
+    //     The last LinkedListNode of the LinkedList
     LinkedListNode<T> * Last();
-
     //
     // Summary:
     //     Adds a new node containing the specified value after the specified existing node
@@ -103,8 +117,44 @@ public:
     // Summary:
     //     Removes all nodes from the LinkedList
     void Clear();
-    //bool Contains(T value);
-    //void CopyTo(T[] array, int index);
+    //
+    // Summary:
+    //     Determines whether a value is in the LinkedList
+    // Parameters:
+    //   value:
+    //     The value to locate in the LinkedList. The value
+    //     can be null for reference types.
+    // Returns:
+    //     true if value is found in the LinkedList; otherwise,
+    //     false.
+    bool Contains(T value);
+
+    //
+    // Summary:
+    //     Copies the entire LinkedList to a compatible one-dimensional
+    //     System.Array, starting at the specified index of the target array.
+    //
+    // Parameters:
+    //   array:
+    //     The one-dimensional System.Array that is the destination of the elements copied
+    //     from LinkedList. The System.Array must have zero-based
+    //     indexing.
+    //
+    //   index:
+    //     The zero-based index in array at which copying begins.
+    //
+    // Exceptions:
+    //   T:System.ArgumentNullException:
+    //     array is null.
+    //
+    //   T:System.ArgumentOutOfRangeException:
+    //     index is less than zero.
+    //
+    //   T:System.ArgumentException:
+    //     The number of elements in the source LinkedList
+    //     is greater than the available space from index to the end of the destination
+    //     array.
+    void CopyTo(T array[], int index);
 
     //
     // Summary:
@@ -151,7 +201,7 @@ public:
     //     Removes the node at the start of the LinkedList
     // Exceptions:
     //   T:System.InvalidOperationException:
-    //     The System.Collections.Generic.LinkedList is empty.
+    //     The LinkedList is empty.
     void RemoveFirst();
     //
     // Summary:
@@ -161,13 +211,13 @@ public:
     void Print(); //prints the contents of the linked list
 
 private:
-    LinkedListNode<T> *m_pStart;   //stores the pointer of first object in the linked list
-    LinkedListNode<T> *m_pEnd;    //stored the pointer of the last object in the linked list
+    LinkedListNode<T> *m_pStart;                    //stores the pointer of first object in the linked list
+    LinkedListNode<T> *m_pEnd;                      //stored the pointer of the last object in the linked list
     bool findNodeInList(LinkedListNode<T> * node);
     int m_NumberOfNodes;
-    bool isEmpty();                 //utility functions used to see if the list contains no elements
-    void beginInsert(T);           //inserts new node before the first node in the list
-    void endInsert(T);            //inserts new node after the last node in the list
+    bool isEmpty();                                 //utility functions used to see if the list contains no elements
+    void beginInsert(T);                            //inserts new node before the first node in the list
+    void endInsert(T);                              //inserts new node after the last node in the list
     bool removeNode(LinkedListNode<T> * node);
 };
 
@@ -376,6 +426,41 @@ void LinkedList<T>::Clear()
         }
         m_pStart = NULL;
         m_pEnd = NULL;
+    }
+}
+
+template <class T>
+bool LinkedList<T>::Contains(T value)
+{
+    LinkedListNode<T> * p_TempNode;
+    bool bFound = false;
+
+    p_TempNode = m_pStart;
+
+    while ((!bFound) && (p_TempNode != NULL)) //runs through list until data is found within a node or end of list is reached
+    {
+        if (p_TempNode->GetValue() == value) //if the node's data equals the key then the node has been found
+            bFound = true;
+        else
+            p_TempNode = p_TempNode->GetNext(); //moves to next node in list
+    }
+
+    return bFound;
+}
+
+template <class T>
+void LinkedList<T>::CopyTo(T array[], int index)
+{
+    LinkedListNode<T> * p_TempNode = m_pStart;
+    int iIndex = index;
+
+    if (isEmpty())
+        return;
+    while (p_TempNode)
+    {
+        array[iIndex] = p_TempNode->GetValue();
+        p_TempNode = p_TempNode->GetNext();
+        iIndex++;
     }
 }
 
