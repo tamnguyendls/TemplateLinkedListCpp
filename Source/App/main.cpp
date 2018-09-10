@@ -308,6 +308,94 @@ void TestAddFirst_Node()
     system("pause");
 }
 
+void TestRemoveFirst()
+{
+    printf("\nTestRemoveFirst\n");
+    char * firstString[] = { "the", "cat", "caught", "the", "big", "fish" };
+    LinkedList<char*> pStringList;
+
+    for (int i = 0; i < 6; i++)
+    {
+        LinkedListNode<char*> *newNode = new LinkedListNode<char*>(firstString[i]);
+        pStringList.AddLast(newNode);
+    }
+
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+    
+    pStringList.RemoveFirst();
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+    
+    system("pause");
+}
+
+void TestRemove_T_Value()
+{
+    printf("\nTestRemove_T_Value\n");
+    char * firstString[] = { "the", "cat", "caught", "the", "big", "fish" };
+    LinkedList<char*> pStringList;
+
+    for (int i = 0; i < 6; i++)
+    {
+        LinkedListNode<char*> *newNode = new LinkedListNode<char*>(firstString[i]);
+        pStringList.AddLast(newNode);
+    }
+
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+
+    pStringList.Remove("fish");
+    pStringList.Remove("the");
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+
+    //system("pause");
+}
+
+void TestRemoveFistRemoveLast()
+{
+    printf("\nTestRemoveFistRemoveLast\n");
+    char * firstString[] = { "the", "cat", "caught", "the", "big", "fish" };
+    LinkedList<char*> pStringList;
+
+    for (int i = 0; i < 6; i++)
+    {
+        LinkedListNode<char*> *newNode = new LinkedListNode<char*>(firstString[i]);
+        pStringList.AddLast(newNode);
+    }
+
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+    pStringList.RemoveFirst();
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+    pStringList.RemoveLast();
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+}
+
+void TestClearList()
+{
+    printf("\nTestClearList\n");
+    char * firstString[] = { "the", "cat", "caught", "the", "big", "fish" };
+    LinkedList<char*> pStringList;
+
+    for (int i = 0; i < 6; i++)
+    {
+        LinkedListNode<char*> *newNode = new LinkedListNode<char*>(firstString[i]);
+        pStringList.AddLast(newNode);
+    }
+
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+
+    pStringList.Clear();
+    pStringList.Print();
+    printf("Count = %d\n", pStringList.Count());
+    system("pause");
+}
+
 void UnitTestMyLinkedList()
 {
     //TestAddLast_Value();
@@ -315,8 +403,12 @@ void UnitTestMyLinkedList()
     //TestFind_Node();
     //TestAddNewNodeAfterExistingNode();
     //TestAddNewNodeWithString();
-    TestAddFirst_Value();
-    TestAddFirst_Node();
+    //TestAddFirst_Value();
+    //TestAddFirst_Node();
+    //TestRemoveFirst();
+    TestRemove_T_Value();
+    TestRemoveFistRemoveLast();
+    TestClearList();
 }
 
 

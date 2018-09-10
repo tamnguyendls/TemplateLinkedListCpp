@@ -128,6 +128,7 @@ public:
     //Enumerator GetEnumerator();
     //virtual void GetObjectData(SerializationInfo info, StreamingContext context);
     //virtual void OnDeserialization(object sender);
+
     //
     // Summary:
     //     Removes the first occurrence of the specified value from the LinkedList
@@ -138,22 +139,27 @@ public:
     //     true if the element containing value is successfully removed; otherwise, false.
     //     This method also returns false if value was not found in the original LinkedList
     bool Remove(T value);
-
     //
     // Summary:
     //     Removes the specified node from the LinkedList
     // Parameters:
     //   node:
     //     The LinkedListNode to remove from the LinkedList
-    void Remove(LinkedListNode<T> node);
-    //void RemoveFirst();
-
+    void Remove(LinkedListNode<T> * node);
+    //
+    // Summary:
+    //     Removes the node at the start of the LinkedList
+    // Exceptions:
+    //   T:System.InvalidOperationException:
+    //     The System.Collections.Generic.LinkedList is empty.
+    void RemoveFirst();
     //
     // Summary:
     //     Removes the node at the end of the LinkedList
     void RemoveLast();
 
     void Print(); //prints the contents of the linked list
+
 private:
     LinkedListNode<T> *m_pStart;   //stores the pointer of first object in the linked list
     LinkedListNode<T> *m_pEnd;    //stored the pointer of the last object in the linked list
@@ -162,6 +168,7 @@ private:
     bool isEmpty();                 //utility functions used to see if the list contains no elements
     void beginInsert(T);           //inserts new node before the first node in the list
     void endInsert(T);            //inserts new node after the last node in the list
+    bool removeNode(LinkedListNode<T> * node);
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -207,18 +214,7 @@ LinkedList<T>::LinkedList()
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
-    if (!isEmpty()) // List is not empty
-    {
-        LinkedListNode<T> *currentPtr = m_pStart;
-        LinkedListNode<T> *tempPtr;
-
-        while (currentPtr != 0) // delete remaining nodes
-        {
-            tempPtr = currentPtr;
-            currentPtr = currentPtr->GetNext();
-            delete tempPtr;
-        }
-    }
+    Clear();
 }
 
 template <class T>
@@ -278,6 +274,8 @@ bool LinkedList<T>::AddAfter(LinkedListNode<T> * node, LinkedListNode<T> * newNo
         m_NumberOfNodes++;
         return true;
     }
+
+    return false;
 }
 
 template <class T>
@@ -363,7 +361,22 @@ void LinkedList<T>::AddLast(LinkedListNode<T> * node)
 template <class T>
 void LinkedList<T>::Clear()
 {
+    if (!isEmpty()) // List is not empty
+    {
+        LinkedListNode<T> *currentPtr = m_pStart;
+        LinkedListNode<T> *tempPtr;
 
+        while (currentPtr != 0) // delete remaining nodes
+        {
+            tempPtr = currentPtr;
+            currentPtr = currentPtr->GetNext();
+            delete tempPtr;
+            tempPtr = NULL;
+            m_NumberOfNodes--;
+        }
+        m_pStart = NULL;
+        m_pEnd = NULL;
+    }
 }
 
 template <class T>
@@ -381,6 +394,7 @@ LinkedListNode<T> * LinkedList<T>::Find(T value)
         else
             nodePtr = nodePtr->GetNext(); //moves to next node in list
     }
+
     return nodePtr; //returns pointer to the node that contains data equal to key (NULL if not found)
 }
 
@@ -393,19 +407,66 @@ LinkedListNode<T> * LinkedList<T>::FindLast(T value)
 template <class T>
 bool LinkedList<T>::Remove(T value)
 {
+    bool bRet = false;
+    LinkedListNode<T>* p_FoundNode = NULL;
 
+    if (!isEmpty())
+    {
+        p_FoundNode = Find(value);
+        if (p_FoundNode == NULL)
+        {
+            bRet = false;
+        }
+        else
+        {
+            bRet = removeNode(p_FoundNode);
+        }
+    }
+    
+    return bRet;
 }
 
 template <class T>
-void LinkedList<T>::Remove(LinkedListNode<T> node)
+void LinkedList<T>::Remove(LinkedListNode<T> * node)
 {
+    removeNode(node);
+}
 
+template <class T>
+void LinkedList<T>::RemoveFirst()
+{
+    LinkedListNode<T> * p_TempNode = m_pStart;
+
+    if (!isEmpty())
+    {
+        m_pStart = p_TempNode->GetNext();
+        delete p_TempNode;
+        m_NumberOfNodes--;
+    }
 }
 
 template <class T>
 void LinkedList<T>::RemoveLast()
 {
+    LinkedListNode<T> * p_TempNode = m_pStart;
 
+    if (isEmpty())
+    {
+        return;
+    }
+
+    while (p_TempNode)
+    {
+        if (p_TempNode->GetNext() == m_pEnd)
+        {
+            p_TempNode->SetNext(NULL);
+            delete m_pEnd;
+            m_pEnd = p_TempNode;
+            m_NumberOfNodes--;
+            return;
+        }
+        p_TempNode = p_TempNode->GetNext();
+    }
 }
 
 template <class T>
@@ -451,6 +512,40 @@ void LinkedList<T>::beginInsert(T inData)
     {
         LinkedListNode<T> * p_NewNode = new LinkedListNode<T>(inData);
     }
+}
+
+template <class T>
+bool LinkedList<T>::removeNode(LinkedListNode<T>* node)
+{
+    LinkedListNode<T> * p_RemovedNode = node;
+    LinkedListNode<T> * p_TempNode = m_pStart;
+
+    if (isEmpty() || p_RemovedNode == NULL)
+        return false;
+
+    if (p_TempNode == p_RemovedNode)
+    {
+        m_pStart = p_TempNode->GetNext();
+        delete p_RemovedNode;
+        p_RemovedNode = NULL;
+        m_NumberOfNodes--;
+        return true;
+    }
+
+    while (p_TempNode)
+    {
+        if (p_TempNode->GetNext() == p_RemovedNode)
+        {
+            p_TempNode->SetNext(p_RemovedNode->GetNext());
+            delete p_RemovedNode;
+            p_RemovedNode = NULL;
+            m_NumberOfNodes--;
+            return true;
+        }
+        p_TempNode = p_TempNode->GetNext();
+    }
+
+    return false;
 }
 
 template <class T>
